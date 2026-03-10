@@ -1,0 +1,18 @@
+services:
+  texas-data:
+    build: .
+    container_name: texas-data-portal
+    restart: always
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=texas-data.robertmccaleb.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=texas-data.robertmccaleb.com
+      - LETSENCRYPT_EMAIL=robert.mccaleb@gmail.com
+    networks:
+      - nginx-proxy
+
+networks:
+  nginx-proxy:
+    external: true
