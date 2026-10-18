@@ -1,0 +1,24 @@
+name: texas-data
+services:
+  web:
+    image: sha256:3b064ad9b74cdb02d036f1ada830760141c3326c8d0c463a44ec9527290f2463
+    pull_policy: never
+    container_name: texas-data-portal
+    restart: always
+    environment:
+      VIRTUAL_HOST: texas-data.robertmccaleb.com
+      VIRTUAL_PORT: '80'
+      LETSENCRYPT_HOST: texas-data.robertmccaleb.com
+      LETSENCRYPT_EMAIL: robert.mccaleb@gmail.com
+    volumes:
+    - ./default.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+    - nginx-proxy
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '3'
+networks:
+  nginx-proxy:
+    external: true
